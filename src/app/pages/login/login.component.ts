@@ -32,8 +32,9 @@ export class LoginComponent {
         error: (error) => {
           console.log('error', error);
           this.loading = false;
-          this.messages = [ { severity: 'error', summary: 'Error', detail: error.error.message }]
-          this.messageService.add(   { severity: 'error', summary: 'Error', detail: error.error.message });
+          this.messages = [
+            { severity: 'error', summary: 'Error', detail: 'Wrong username or password' },
+          ];
         },
       });
   }

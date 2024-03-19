@@ -1,6 +1,6 @@
 <div class="all">
   <div class="container">
-    <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
+    <p-messages [(value)]="messages" [enableService]="false" [closable]="true"></p-messages>
     <div class="login-form">
       <img src="assets/images/Logo.png" alt=" logo" class="logo" />
       <div class="card">
@@ -10,7 +10,7 @@
         </div>
         <form [formGroup]="form" (ngSubmit)="login()">
           <div class="form-group">
-            <label for="email1">Email</label>
+            <label for="email1">Username</label>
             <input
               formControlName="username"
               id="email1"
@@ -32,7 +32,7 @@
             <p-checkbox id="rememberme1" [binary]="true"></p-checkbox>
             <label for="rememberme1">Remember me</label>
           </div> -->
-          <button type="submit" pButton pRipple label="Sign In"></button>
+          <button type="submit" pButton pRipple label="Sign In" [disabled]="!form.valid"></button>
         </form>
       </div>
     </div>
