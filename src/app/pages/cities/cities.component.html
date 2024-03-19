@@ -1,0 +1,45 @@
+<div class="card">
+    <div class="container">
+      <p-messages [(value)]="messages" [enableService]="true" [closable]="true"></p-messages>
+      <form (ngSubmit)="submit()" [formGroup]="form">
+        <div class="flex flex-column gap-2">
+          <label for="cityName">City Name</label>
+          <input
+            pInputText
+            id="cityName"
+            aria-describedby="cityName-help"
+            formControlName="name"
+          />
+        </div>
+        <div class="flex flex-column gap-2">
+          <label for="description">discription</label>
+          <textarea
+            rows="5"
+            cols="30"
+            pInputTextarea
+            [autoResize]="true"
+            formControlName="description"
+          ></textarea>
+        </div>
+        <div class="flex flex-column gap-2">
+          <label for="category">Image URL</label>
+          <input
+            pInputText
+            id="imageUrl"
+            aria-describedby="imageUrl-help"
+            formControlName="imageUrl"
+          />
+        </div>
+      
+        <div class="flex flex-column gap-2">
+          <button
+            pButton
+            type="submit"
+            label="Submit"
+            [disabled]="!form.valid"
+          ></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

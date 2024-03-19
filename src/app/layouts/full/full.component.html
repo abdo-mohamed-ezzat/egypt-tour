@@ -1,0 +1,25 @@
+<div class="all">
+  <nav class="navigation">
+    <div class="container">
+      <img src="assets/images/Logo.png" alt="logo" class="logo" />
+      <h3>Egypt Tour Mate</h3>
+    </div>
+  </nav>
+  <aside class="sidebar hidden">
+    <div class="container">
+      <ul class="sidebar_list">
+        <li class="sidebar_item active" ><a routerLink="/dashboard">Dashboard</a></li>
+        <li class="sidebar_item" routerLinkActive="active"><a routerLink="/categories">Categories</a></li>
+        <li class="sidebar_item" routerLinkActive="active"><a routerLink="/cities">Cities</a></li>
+        <li class="sidebar_item" routerLinkActive="active"><a routerLink="/places">Places</a></li>
+        <li class="sidebar_item" routerLinkActive="active"><a routerLink="/create-admin">Create Admin</a></li>
+      </ul>
+      <ul class="sidebar_list">
+        <li class="sidebar_item " (click)="logout()"><a>Sign Out</a></li>
+      </ul>
+    </div>
+  </aside>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

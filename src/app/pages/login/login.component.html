@@ -1,0 +1,41 @@
+<div class="all">
+  <div class="container">
+    <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
+    <div class="login-form">
+      <img src="assets/images/Logo.png" alt=" logo" class="logo" />
+      <div class="card">
+        <div class="text-center mb-5">
+          <h1 class="welcome">Welcome, Egypt Tour Mate!</h1>
+          <p class="subheading">Sign in to continue</p>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="login()">
+          <div class="form-group">
+            <label for="email1">Email</label>
+            <input
+              formControlName="username"
+              id="email1"
+              type="text"
+              placeholder="Email address"
+              pInputText
+            />
+          </div>
+          <div class="form-group">
+            <label for="password1">Password</label>
+            <p-password
+              formControlName="password"
+              id="password1"
+              placeholder="Password"
+              [feedback]="false"
+            ></p-password>
+          </div>
+          <!-- <div class="form-group checkbox">
+            <p-checkbox id="rememberme1" [binary]="true"></p-checkbox>
+            <label for="rememberme1">Remember me</label>
+          </div> -->
+          <button type="submit" pButton pRipple label="Sign In"></button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
