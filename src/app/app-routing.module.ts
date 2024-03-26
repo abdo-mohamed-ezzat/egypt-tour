@@ -8,6 +8,7 @@ import { CreateAdminComponent } from './pages/create-admin/create-admin.componen
 import { BlankComponent } from './layouts/blank/blank.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ErrorComponent } from './pages/error/error.component';
+import { CitiesComponent } from './pages/cities/cities.component';
 export const routes: Routes = [
   {
     path: '',
@@ -23,7 +24,7 @@ export const routes: Routes = [
       },
       {
         path: 'cities',
-        component: CategoriesComponent,
+        component: CitiesComponent,
       },
       {
         path: 'places',

@@ -1,10 +1,11 @@
 <div class="d-flex flex-row flex-wrap">
-  <div class="card">
+  <div class="card" style="width: 35%">
     <p-messages
       [(value)]="messages"
       [enableService]="true"
       [closable]="true"
     ></p-messages>
+    <p-confirmDialog></p-confirmDialog>
     <form (ngSubmit)="submit()" [formGroup]="form">
       <div class="flex flex-column gap-2">
         <label for="cityName">City Name</label>
@@ -45,7 +46,6 @@
       </div>
     </form>
   </div>
-  <h1>stest</h1>
   <div class="card" style="width: 60%">
     <p-table
       #dt

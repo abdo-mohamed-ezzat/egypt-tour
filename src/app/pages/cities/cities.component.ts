@@ -32,7 +32,7 @@ editedCity: any;
   ngOnInit() {
     this.http.get(environment.APIURL + "/api/CityCategory/GetAll").subscribe({
       next: (res: any) => {
-        this.cities = res;
+        this.cities = res.data;
       }
     })
   }
@@ -83,6 +83,7 @@ editedCity: any;
   }
   submit() {
     if (this.edit) {
+      this.edit = false;
       this.http
         .put(
           environment.APIURL + '/api/Places/Update?id=' + this.editedCity.id,

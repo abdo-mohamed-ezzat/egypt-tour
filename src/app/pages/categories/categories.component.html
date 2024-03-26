@@ -1,6 +1,10 @@
-<div class="card">
-  <div class="container">
-    <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
+<div class="d-flex flex-row flex-wrap">
+  <div class="card" style="width: 35%">
+    <p-messages
+      [(value)]="messages"
+      [enableService]="false"
+      [closable]="false"
+    ></p-messages>
     <form (ngSubmit)="submit()" [formGroup]="form">
       <div class="flex flex-column gap-2">
         <label for="cityName">Category Name</label>
@@ -30,16 +34,6 @@
           formControlName="imageUrl"
         />
       </div>
-      <!-- <div class="flex flex-column gap-2">
-        <label for="category">Category</label>
-        <p-dropdown
-          formControlName="cityName"
-          [options]="cities"
-          optionLabel="name"
-          placeholder="Select a City"
-        ></p-dropdown>
-      </div> -->
-
       <div class="flex flex-column gap-2">
         <button
           pButton
@@ -49,5 +43,50 @@
         ></button>
       </div>
     </form>
+  </div>
+  <div class="card" style="width: 60%">
+    <p-table
+      #dt
+      [value]="cateogries"
+      [scrollable]="true"
+      [scrollHeight]="'600px'"
+      [rowHover]="true"
+      dataKey="id"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Places Counter</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-category>
+        <tr>
+          <td>
+            <img [src]="category.imageLink" width="50" class="shadow-4" />
+          </td>
+          <td>{{ category.name }}</td>
+          <td>{{ category.placesCounter }}</td>
+          <td>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-success mr-2"
+              (click)="editCategory(category)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-warning"
+              (click)="deleteCategory(category, category.id)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
 </div>
