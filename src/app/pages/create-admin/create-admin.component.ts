@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
+import { Message } from 'primeng/api';
+import { HttpClient } from '@angular/common/http';
+
 import {
   AbstractControl,
   FormControl,
@@ -15,8 +19,10 @@ import {
 })
 export class CreateAdminComponent {
   form!: FormGroup;
-
-  constructor() {
+  admins = [];
+  selectedAdmin!: any;
+  constructor( private http: HttpClient,
+    private confirmationService: ConfirmationService, private messageService: MessageService) {
     this.form = new FormGroup(
       {
         firstName: new FormControl('', [Validators.required]),
@@ -30,6 +36,9 @@ export class CreateAdminComponent {
       { validators: this.checkPasswords }
     );
   }
+  ngOnInit(){
+
+  }
   checkPasswords(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const password = control.get('password')?.value;
@@ -37,5 +46,7 @@ export class CreateAdminComponent {
       return password === confirmPassword ? null : { notSame: true };
     };
   }
-  submit() {}
+  submit() {
+
+  }
 }

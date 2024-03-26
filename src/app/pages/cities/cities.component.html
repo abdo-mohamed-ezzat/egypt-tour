@@ -1,45 +1,93 @@
-<div class="card">
-    <div class="container">
-      <p-messages [(value)]="messages" [enableService]="true" [closable]="true"></p-messages>
-      <form (ngSubmit)="submit()" [formGroup]="form">
-        <div class="flex flex-column gap-2">
-          <label for="cityName">City Name</label>
-          <input
-            pInputText
-            id="cityName"
-            aria-describedby="cityName-help"
-            formControlName="name"
-          />
-        </div>
-        <div class="flex flex-column gap-2">
-          <label for="description">discription</label>
-          <textarea
-            rows="5"
-            cols="30"
-            pInputTextarea
-            [autoResize]="true"
-            formControlName="description"
-          ></textarea>
-        </div>
-        <div class="flex flex-column gap-2">
-          <label for="category">Image URL</label>
-          <input
-            pInputText
-            id="imageUrl"
-            aria-describedby="imageUrl-help"
-            formControlName="imageUrl"
-          />
-        </div>
-      
-        <div class="flex flex-column gap-2">
-          <button
-            pButton
-            type="submit"
-            label="Submit"
-            [disabled]="!form.valid"
-          ></button>
-        </div>
-      </form>
-    </div>
+<div class="d-flex flex-row flex-wrap">
+  <div class="card">
+    <p-messages
+      [(value)]="messages"
+      [enableService]="true"
+      [closable]="true"
+    ></p-messages>
+    <form (ngSubmit)="submit()" [formGroup]="form">
+      <div class="flex flex-column gap-2">
+        <label for="cityName">City Name</label>
+        <input
+          pInputText
+          id="cityName"
+          aria-describedby="cityName-help"
+          formControlName="name"
+        />
+      </div>
+      <div class="flex flex-column gap-2">
+        <label for="description">discription</label>
+        <textarea
+          rows="5"
+          cols="30"
+          pInputTextarea
+          [autoResize]="true"
+          formControlName="description"
+        ></textarea>
+      </div>
+      <div class="flex flex-column gap-2">
+        <label for="category">Image URL</label>
+        <input
+          pInputText
+          id="imageUrl"
+          aria-describedby="imageUrl-help"
+          formControlName="imageUrl"
+        />
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <button
+          pButton
+          type="submit"
+          label="Submit"
+          [disabled]="!form.valid"
+        ></button>
+      </div>
+    </form>
   </div>
-  
+  <h1>stest</h1>
+  <div class="card" style="width: 60%">
+    <p-table
+      #dt
+      [value]="cities"
+      [scrollable]="true"
+      [scrollHeight]="'600px'"
+      [tableStyle]="{ 'max-width': '75rem' }"
+      [rowHover]="true"
+      dataKey="id"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Places Counter</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-city>
+        <tr>
+          <td><img [src]="city.imageLink" width="50" class="shadow-4" /></td>
+          <td>{{ city.name }}</td>
+          <td>{{ city.placesCounter }}</td>
+          <td>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-success mr-2"
+              (click)="editCity(city)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-warning"
+              (click)="delteCity(city, city.id)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
