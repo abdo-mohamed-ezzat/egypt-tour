@@ -16,6 +16,7 @@ import {
   selector: 'app-create-admin',
   templateUrl: './create-admin.component.html',
   styleUrls: ['./create-admin.component.scss'],
+  providers: [ConfirmationService, MessageService],
 })
 export class CreateAdminComponent {
   form!: FormGroup;

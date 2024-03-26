@@ -3,8 +3,15 @@
     <p-messages
       [(value)]="messages"
       [enableService]="false"
-      [closable]="false"
+      [closable]="true"
     ></p-messages>
+    <button
+    pButton
+    label="reset"
+    *ngIf="edit"
+    (click)="resetToAdd()"
+  ></button>
+    <p-confirmDialog></p-confirmDialog>
     <form (ngSubmit)="submit()" [formGroup]="form">
       <div class="flex flex-column gap-2">
         <label for="cityName">Category Name</label>
@@ -31,7 +38,7 @@
           pInputText
           id="imageUrl"
           aria-describedby="imageUrl-help"
-          formControlName="imageUrl"
+          formControlName="imageLink"
         />
       </div>
       <div class="flex flex-column gap-2">

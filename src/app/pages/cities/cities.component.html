@@ -1,10 +1,16 @@
 <div class="d-flex flex-row flex-wrap">
   <div class="card" style="width: 35%">
     <p-messages
-      [(value)]="messages"
-      [enableService]="true"
-      [closable]="true"
+    [(value)]="messages"
+    [enableService]="true"
+    [closable]="true"
     ></p-messages>
+    <button
+        pButton
+        label="reset"
+        *ngIf="edit"
+        (click)="resetToAdd()"
+      ></button>
     <p-confirmDialog></p-confirmDialog>
     <form (ngSubmit)="submit()" [formGroup]="form">
       <div class="flex flex-column gap-2">
@@ -32,7 +38,7 @@
           pInputText
           id="imageUrl"
           aria-describedby="imageUrl-help"
-          formControlName="imageUrl"
+          formControlName="imageLink"
         />
       </div>
 

@@ -26,7 +26,7 @@ editedCity: any;
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      imageUrl: new FormControl('', Validators.required),
+      imageLink: new FormControl('', Validators.required),
     });
   }
   ngOnInit() {
@@ -35,6 +35,10 @@ editedCity: any;
         this.cities = res.data;
       }
     })
+  }
+  resetToAdd(){
+    this.edit = false;
+    this.form.reset();
   }
   editCity(city: any) {
     this.form.patchValue(city);

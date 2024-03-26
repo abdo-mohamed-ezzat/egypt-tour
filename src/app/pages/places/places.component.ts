@@ -21,7 +21,7 @@ export class PlacesComponent {
   messages: Message[] = [];
   Categories: { name: string; id: number }[] = [];
   places: place[] = [];
-  edite: boolean = false;
+  edit: boolean = false;
   constructor(
     private http: HttpClient,
     private confirmationService: ConfirmationService,
@@ -73,7 +73,7 @@ export class PlacesComponent {
   editedPlace: place = {} as place;
   editPlace(place: place) {
     this.form.patchValue(place);
-    this.edite = true;
+    this.edit = true;
     this.editedPlace = place;
   }
   deletePlace(event: Event, id: number) {
@@ -116,12 +116,16 @@ export class PlacesComponent {
       },
     });
   }
+  resetToAdd(){
+    this.edit = false;
+    this.form.reset();
+  }
   submit() {
     const catVal = this.form.get('categoryId')?.value.id;
     const citVal = this.form.get('cityId')?.value.id;
     this.form.get('categoryId')?.setValue(catVal);
     this.form.get('cityId')?.setValue(citVal);
-    if (this.edite) {
+    if (this.edit) {
       this.http
         .put(
           environment.APIURL + '/api/Places/Update?id=' + this.editedPlace.id,
@@ -129,6 +133,14 @@ export class PlacesComponent {
         )
         .subscribe({
           next: (res: any) => {
+            // update the place in the places array
+            this.places = this.places.map((x) => {
+              if (x.id === this.editedPlace.id) {
+                return this.editedPlace;
+              }
+              return x;
+            })
+            this.form.reset();
             this.messages = [
               { severity: 'success', summary: 'Success', detail: res.message },
             ];

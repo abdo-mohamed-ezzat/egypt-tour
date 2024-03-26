@@ -27,7 +27,7 @@ export class CategoriesComponent {
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      imageUrl: new FormControl('', Validators.required),
+      imageLink: new FormControl('', Validators.required),
     });
   }
   ngOnInit() {
@@ -82,20 +82,31 @@ export class CategoriesComponent {
       },
     });
   }
+  resetToAdd(){
+    this.edit = false;
+    this.form.reset();
+  }
   submit() {
     if (this.edit) {
       this.edit = false;
+      const categoryData = {
+        ...this.form.value,
+        id: this.editedCategory.id,
+        placeCounter: 0,
+      };
       this.http
         .put(
           environment.APIURL + '/api/TourismCategories/Update?id=' + this.editedCategory.id,
-          this.form.value
+          categoryData
         )
         .subscribe({
           next: (res: any) => {
             this.messages = [
               { severity: 'success', summary: 'Success', detail: res.message },
             ];
-            //replace the place with the updated one in the places array
+            //update the category
+            this.editedCategory = {...this.editedCategory, ...categoryData};
+            this.form.reset();
             const index = this.cateogries.findIndex(
               (x : any) => x.id === this.editedCategory.id
             );
@@ -114,11 +125,14 @@ export class CategoriesComponent {
       .post(environment.APIURL + '/api/TourismCategories/Add', this.form.value)
       .pipe(
         catchError((error: any) => {
-          console.log('error', error);
-          throw error;
+          this.messages = [
+            { severity: 'error', summary: 'Error', detail: error.message },
+          ];
+          return error;
         })
       )
       .subscribe((res: any) => {
+        this.cateogries.push(this.form.value);
         this.form.reset();
         this.messages = [ { severity: 'success', summary: 'Success', detail: res.message }]
         this.messageService.add(   { severity: 'success', summary: 'Success', detail: res.message });

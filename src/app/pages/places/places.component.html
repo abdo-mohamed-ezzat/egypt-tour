@@ -2,10 +2,16 @@
   <div class="card" style="width: 35%">
     <p-toast></p-toast>
     <p-confirmDialog></p-confirmDialog>
+    <button
+    pButton
+    label="reset"
+    *ngIf="edit"
+    (click)="resetToAdd()"
+  ></button>
     <p-messages
       [(value)]="messages"
       [enableService]="false"
-      [closable]="false"
+      [closable]="true"
     ></p-messages>
     <form (ngSubmit)="submit()" [formGroup]="form" class="mx-5">
       <div class="flex flex-column gap-2">
