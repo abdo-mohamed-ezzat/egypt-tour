@@ -55,7 +55,7 @@
           [toggleMask]="true"
         ></p-password>
       </div>
-      <div *ngIf="form.errors?.['notSame']">Passwords do not match</div>
+      <div *ngIf="isMatch" class="text-red-500">Passwords do not match</div>
       <div class="flex flex-column gap-2">
         <button
           pButton

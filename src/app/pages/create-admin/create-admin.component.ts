@@ -11,6 +11,8 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { environment } from 'src/environments/environment';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-create-admin',
@@ -22,6 +24,7 @@ export class CreateAdminComponent {
   form!: FormGroup;
   admins = [];
   selectedAdmin!: any;
+  messages: Message[] = [];
   constructor( private http: HttpClient,
     private confirmationService: ConfirmationService, private messageService: MessageService) {
     this.form = new FormGroup(
@@ -32,22 +35,32 @@ export class CreateAdminComponent {
         email: new FormControl('', [Validators.required]),
         password: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required]),
-        roleName: new FormControl('admin', [Validators.required]),
+        roleName: new FormControl('admin'),
       },
-      { validators: this.checkPasswords }
     );
   }
+
+  isMatch: boolean = true;
   ngOnInit(){
 
   }
-  checkPasswords(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const password = control.get('password')?.value;
-      const confirmPassword = control.get('confirmPassword')?.value;
-      return password === confirmPassword ? null : { notSame: true };
-    };
-  }
-  submit() {
 
+  submit() {
+    this.http
+    .post(environment.APIURL + '/api/Adminstration/register', this.form.value)
+    .pipe(
+      catchError((error: any) => {
+        this.messages = [
+          { severity: 'error', summary: 'Error', detail: error.message },
+        ];
+        return error;
+      })
+    )
+    .subscribe((res: any) => {
+      this.form.reset();
+      this.messages = [ { severity: 'success', summary: 'Success', detail: res.message }]
+      this.messageService.add(   { severity: 'success', summary: 'Success', detail: res.message });
+    });
   }
 }
+

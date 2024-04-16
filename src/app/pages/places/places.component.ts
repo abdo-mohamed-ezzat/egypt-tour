@@ -172,6 +172,7 @@ export class PlacesComponent {
           this.messages = [
             { severity: 'success', summary: 'Success', detail: res.message },
           ];
+          this.places.push(this.form.value as place);
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
