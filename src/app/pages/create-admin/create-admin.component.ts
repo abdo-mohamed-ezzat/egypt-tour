@@ -12,7 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { environment } from 'src/environments/environment';
-import { catchError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-create-admin',
@@ -46,21 +46,34 @@ export class CreateAdminComponent {
   }
 
   submit() {
+    if (this.form.value.password !== this.form.value.confirmPassword) {
+      return;
+    }
+    const body = {
+      phoneNumber: this.form.value.phoneNumber,
+      email: this.form.value.email,
+      password: this.form.value.password,
+      username: `${this.form.value.firstName}${this.form.value.lastName}`,
+      roleName: 'admin'
+    };
     this.http
-    .post(environment.APIURL + '/api/Adminstration/register', this.form.value)
-    .pipe(
-      catchError((error: any) => {
-        this.messages = [
-          { severity: 'error', summary: 'Error', detail: error.message },
-        ];
-        return error;
-      })
-    )
-    .subscribe((res: any) => {
-      this.form.reset();
-      this.messages = [ { severity: 'success', summary: 'Success', detail: res.message }]
-      this.messageService.add(   { severity: 'success', summary: 'Success', detail: res.message });
-    });
+      .post(environment.APIURL + '/api/Adminstration/register', body)
+      .pipe(
+        catchError(
+          this.handleError
+        )
+      )
+      .subscribe((res: any) => {
+        this.form.reset();
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
+      });
   }
+
+  private handleError = (error: any) => {
+    console.log(error);
+    this.messages = [{ severity: 'error', summary: 'Error', detail: error.message }];
+    return throwError(error);
+  };
+
 }
 

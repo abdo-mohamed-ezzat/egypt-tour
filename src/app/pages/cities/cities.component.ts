@@ -88,10 +88,15 @@ editedCity: any;
   submit() {
     if (this.edit) {
       this.edit = false;
+      const data = {
+        ...this.form.value,
+        id: this.editedCity.id,
+        placesCounter: 10,
+      }
       this.http
         .put(
           environment.APIURL + '/api/Places/Update?id=' + this.editedCity.id,
-          this.form.value
+          data
         )
         .subscribe({
           next: (res: any) => {

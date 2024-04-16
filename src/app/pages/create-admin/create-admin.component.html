@@ -1,5 +1,10 @@
 <div class="card">
   <div class="container">
+    <p-messages
+    [(value)]="messages"
+    [enableService]="true"
+    [closable]="true"
+  ></p-messages>
     <form (ngSubmit)="submit()" [formGroup]="form">
       <div class="flex flex-column gap-2">
         <label for="firstname">First Name</label>
@@ -55,7 +60,7 @@
           [toggleMask]="true"
         ></p-password>
       </div>
-      <div *ngIf="isMatch" class="text-red-500">Passwords do not match</div>
+      <div *ngIf="!isMatch" class="text-danger">Passwords do not match</div>
       <div class="flex flex-column gap-2">
         <button
           pButton
