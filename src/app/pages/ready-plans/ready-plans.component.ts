@@ -28,9 +28,11 @@ export class ReadyPlansComponent {
   messages: Message[] = [];
   trips: any[] = [];
   disabled: boolean = true;
-  tripPlaces: { day: number; id: number }[] = [];
+  tripPlaces!: Set<{ day: number; id: number }>;
   placesIDs!: any[];
   dayNums!: any[];
+  addDisabled = false;
+
   constructor(
     private http: HttpClient,
     private confirmationService: ConfirmationService,
@@ -48,6 +50,7 @@ export class ReadyPlansComponent {
   }
 
   ngOnInit() {
+    this.tripPlaces = new Set();
     this.http
       .get(environment.APIURL + '/api/Places/GetAll')
       .pipe(
@@ -66,7 +69,16 @@ export class ReadyPlansComponent {
       )
       .subscribe((res: any) => {});
   }
-
+  ngAfterViewInit() {
+    this.form.value.changes.subscribe(() => {
+      if (this.form.get('currentDay')?.value && this.form.get('currentPlace')?.value) {
+        this.addDisabled = false;
+      }
+      else{
+        this.addDisabled = true;
+      }
+    })
+  }
   resetToAdd() {
     this.edit = false;
     this.form.reset();
@@ -118,9 +130,8 @@ export class ReadyPlansComponent {
   }
 
   setTripFormValue() {
-    this.tripPlaces.sort((a, b) => a.day - b.day);
-    this.placesIDs = this.tripPlaces.map((p) => p.id);
-    this.dayNums = this.tripPlaces.map((p) => p.day);
+    this.placesIDs = Array.from(this.tripPlaces).map((p) => p.id);
+    this.dayNums = Array.from(this.tripPlaces).map((p) => p.day);
     this.form.get('placesIDs')?.setValue(this.placesIDs);
     this.form.get('dayNums')?.setValue(this.dayNums);
   }
@@ -130,7 +141,7 @@ export class ReadyPlansComponent {
     const data = {
       nameOfTrip: this.form.get('nameOfTrip')?.value,
       duration: this.form.get('duration')?.value,
-      countOfPlaces: this.tripPlaces.length,
+      countOfPlaces: this.tripPlaces.size,
       placesID: this.placesIDs,
       dayNums: this.dayNums,
     };
@@ -188,8 +199,11 @@ export class ReadyPlansComponent {
   setDayPlace() {
     const day = this.form.get('currentDay')?.value;
     const place = this.form.get('currentPlace')?.value;
-    this.tripPlaces.push({ day, id: place.id });
+    this.tripPlaces.add({ day, id: place.id });
     console.log(this.tripPlaces);
+    this.form.get('currentPlace')?.reset();
+    this.form.get('currentDay')?.reset();
+    this.addDisabled = true;
   }
 }
 

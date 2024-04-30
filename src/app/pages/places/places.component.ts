@@ -9,6 +9,7 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
+import { Table } from 'primeng/table';
 @Component({
   selector: 'app-places',
   templateUrl: './places.component.html',
@@ -120,6 +121,9 @@ export class PlacesComponent {
     this.edit = false;
     this.form.reset();
   }
+  clear(table: Table) {
+    table.clear();
+}
   submit() {
     const catVal = this.form.get('categoryId')?.value.id;
     const citVal = this.form.get('cityId')?.value.id;

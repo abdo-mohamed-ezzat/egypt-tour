@@ -66,7 +66,7 @@
       <div
         class="d-flex flex-row justify-content-start align-items-center mb-2"
       >
-      <button pButton type="button" label="Add" (click)="setDayPlace()"></button>
+      <button pButton type="button" label="Add" [disabled]="addDisabled" (click)="setDayPlace()"></button>
       </div>
       <p-divider align="center" type="dotted">
         <b>finish</b>
