@@ -9,10 +9,14 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { CitiesComponent } from './pages/cities/cities.component';
+import {AuthGuard} from './core/_guards/auth.guard';
+import { ReadyPlansComponent } from './pages/ready-plans/ready-plans.component';
+
 export const routes: Routes = [
   {
     path: '',
     component: FullComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'dashboard',
@@ -34,6 +38,10 @@ export const routes: Routes = [
         path: 'create-admin',
         component: CreateAdminComponent,
       },
+      {
+        path: 'ready-plans',
+        component: ReadyPlansComponent
+      }
     ],
   },
   {

@@ -20,6 +20,7 @@ import { PrimeModule } from './prime.module';
 // add jwt interceptor
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/_interceptors/jwt.interceptor';
+import { ReadyPlansComponent } from './pages/ready-plans/ready-plans.component';
 @NgModule({
   declarations: [
     FullComponent,
@@ -32,6 +33,7 @@ import { JwtInterceptor } from './core/_interceptors/jwt.interceptor';
     DashboardComponent,
     PlacesComponent,
     CreateAdminComponent,
+    ReadyPlansComponent,
   ],
   imports: [
     ReactiveFormsModule,

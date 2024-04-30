@@ -82,13 +82,14 @@
       [rowHover]="true"
       dataKey="id"
       [showCurrentPageReport]="true"
+      [globalFilterFields]="['name']"
     >
       <ng-template pTemplate="header">
         <tr>
           <th>Image</th>
           <th>Name</th>
           <th>Rate Count</th>
-          <th>Rating</th>
+          <th>action</th>
           <th></th>
         </tr>
       </ng-template>

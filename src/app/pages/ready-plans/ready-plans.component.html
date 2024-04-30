@@ -1,0 +1,145 @@
+<div class="d-flex flex-row flex-wrap justify-content-between mb-2">
+  <div class="card p-2" style="width: 45%">
+    <p-toast></p-toast>
+    <p-confirmDialog></p-confirmDialog>
+    <button pButton label="reset" *ngIf="edit" (click)="resetToAdd()"></button>
+    <p-messages
+      [(value)]="messages"
+      [enableService]="false"
+      [closable]="true"
+    ></p-messages>
+    <form (ngSubmit)="submit()" [formGroup]="form" class="mx-5">
+      <div
+        class="d-flex flex-row justify-content-between align-items-center mb-2"
+      >
+        <label for="planName" class="me-2">Plan Name</label>
+        <input
+          pInputText
+          id="planName"
+          aria-describedby="planName-help"
+          formControlName="nameOfTrip"
+          type="text"
+        />
+      </div>
+      <p-divider align="center" type="dotted">
+        <b>Plan</b>
+      </p-divider>
+      <div
+        class="d-flex flex-row justify-content-between align-items-center mb-2"
+      >
+        <label for="dayNamber" class="me-2">Number Of Days</label>
+        <div class="d-flex flex-row justify-content-end">
+          <input
+            pInputText
+            id="dayNumber"
+            aria-describedby="dayNamber-help"
+            formControlName="duration"
+            type="number"
+          />
+          <p-button
+            icon="pi pi-check"
+            (click)="setDayNumber()"
+            ></p-button>
+        </div>
+        </div>
+      <div class="d-flex flex-row justify-content-between mb-2">
+        <div class="flex flex-column gap-2 justify-content-between">
+          <label for="category" class="me-2">place</label>
+          <p-dropdown
+            [options]="places"
+            optionLabel="name"
+            placeholder="Select a place"
+            formControlName="currentPlace"
+            [disabled]="disabled"
+          ></p-dropdown>
+        </div>
+        <div class="flex flex-column gap-2 justify-content-between">
+          <label for="category" class="me-2">day</label>
+          <p-dropdown
+            [options]="days"
+            placeholder="Select a day"
+            formControlName="currentDay"
+            [disabled]="disabled"
+          ></p-dropdown>
+        </div>
+      </div>
+      <div
+        class="d-flex flex-row justify-content-start align-items-center mb-2"
+      >
+      <button pButton type="button" label="Add" (click)="setDayPlace()"></button>
+      </div>
+      <p-divider align="center" type="dotted">
+        <b>finish</b>
+      </p-divider>
+      <div class="flex flex-column gap-2">
+        <button
+          pButton
+          type="submit"
+          label="Submit"
+        ></button>
+      </div>
+    </form>
+    <!-- <p-button (click)="confirm2($event)" icon="pi pi-times" label="Delete" /> -->
+  </div>
+  <div class="card" style="width: 50%">
+    <p-table
+      #dt
+      [value]="trips"
+      [scrollable]="true"
+      [scrollHeight]="'600px'"
+      [tableStyle]="{ 'max-width': '75rem' }"
+      [rowHover]="true"
+      dataKey="id"
+      [showCurrentPageReport]="true"
+      rowGroupMode="subheader" groupRowsBy="name"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Image</th>
+          <th>Trip Name</th>
+          <th>Category Name</th>
+          <th>Duration</th>
+          <th>Day</th>
+          <th>Rating</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="groupheader" let-trip let-rowIndex="rowIndex" let-expanded="expanded">
+        <tr>
+            <td colspan="5">
+                <button type="button" pButton pRipple [pRowToggler]="trip" class="p-button-text p-button-rounded p-button-plain mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                <img [alt]="trip.name" [src]="trip.categotyImage" width="32" style="vertical-align: middle" />
+                <span class="font-bold ml-2">{{trip.name}}</span>
+            </td>          
+        </tr>
+    </ng-template>
+      <ng-template  pTemplate="rowexpansion" let-trip>
+        <tr>
+          <td><img [src]="trip.categotyImage" width="50" class="shadow-4" /></td>
+          <td>{{ trip.name }}</td>
+          <td>{{ trip.duration }}</td>
+          <td>{{ trip.dayNumber }}</td>
+          <td>
+          {{trip.categoryName}}
+          </td>
+          <td>
+            <!-- <button
+              pButton
+              pRipple
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-success mr-2"
+              (click)="editTrip(trip)"
+            ></button> -->
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-warning"
+              (click)="deleteTrip(trip, trip.id)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
