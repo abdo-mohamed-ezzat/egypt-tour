@@ -21,6 +21,7 @@ import { PrimeModule } from './prime.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './core/_interceptors/jwt.interceptor';
 import { ReadyPlansComponent } from './pages/ready-plans/ready-plans.component';
+import { PlaceDetailsComponent } from './pages/place-details/place-details.component';
 @NgModule({
   declarations: [
     FullComponent,
@@ -34,6 +35,7 @@ import { ReadyPlansComponent } from './pages/ready-plans/ready-plans.component';
     PlacesComponent,
     CreateAdminComponent,
     ReadyPlansComponent,
+    PlaceDetailsComponent,
   ],
   imports: [
     ReactiveFormsModule,

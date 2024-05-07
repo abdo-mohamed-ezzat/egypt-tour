@@ -11,7 +11,7 @@ import { ErrorComponent } from './pages/error/error.component';
 import { CitiesComponent } from './pages/cities/cities.component';
 import {AuthGuard} from './core/_guards/auth.guard';
 import { ReadyPlansComponent } from './pages/ready-plans/ready-plans.component';
-
+import { PlaceDetailsComponent } from './pages/place-details/place-details.component';
 export const routes: Routes = [
   {
     path: '',
@@ -41,6 +41,10 @@ export const routes: Routes = [
       {
         path: 'ready-plans',
         component: ReadyPlansComponent
+      },
+      {
+        path: 'places-details',
+        component: PlaceDetailsComponent
       }
     ],
   },

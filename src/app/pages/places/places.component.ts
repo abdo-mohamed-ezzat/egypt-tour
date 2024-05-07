@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Message } from 'primeng/api';
 import { catchError, map, pipe } from 'rxjs';
@@ -17,6 +17,7 @@ import { Table } from 'primeng/table';
   providers: [ConfirmationService, MessageService],
 })
 export class PlacesComponent {
+  @ViewChild('dt') dt!: Table;
   form!: FormGroup;
   cities: { name: string; id: number }[] = [];
   messages: Message[] = [];
@@ -117,13 +118,17 @@ export class PlacesComponent {
       },
     });
   }
-  resetToAdd(){
+  resetToAdd() {
     this.edit = false;
     this.form.reset();
   }
   clear(table: Table) {
     table.clear();
-}
+  }
+  applyFilter(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.dt.filterGlobal(value, 'contains');
+  }
   submit() {
     const catVal = this.form.get('categoryId')?.value.id;
     const citVal = this.form.get('cityId')?.value.id;
@@ -143,7 +148,7 @@ export class PlacesComponent {
                 return this.editedPlace;
               }
               return x;
-            })
+            });
             this.form.reset();
             this.messages = [
               { severity: 'success', summary: 'Success', detail: res.message },
