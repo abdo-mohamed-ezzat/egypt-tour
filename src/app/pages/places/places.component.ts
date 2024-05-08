@@ -75,6 +75,10 @@ export class PlacesComponent {
   editedPlace: place = {} as place;
   editPlace(place: place) {
     this.form.patchValue(place);
+    const city = this.cities.find((x) => x.id === place.cityId);
+    const category = this.Categories.find((x) => x.id === place.categoryId);
+    this.form.get('cityId')?.setValue(city);
+    this.form.get('categoryId')?.setValue(category);
     this.edit = true;
     this.editedPlace = place;
   }
