@@ -1,0 +1,133 @@
+.card {
+  padding: 20px;
+}
+.date-dis {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .discription {
+    width: 40%;
+
+    label {
+      font-weight: bold;
+    }
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+  }
+  .date {
+    width: 40%;
+
+    label {
+      font-weight: bold;
+    }
+    .from,
+    .to {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      label {
+      }
+      input {
+      }
+    }
+  }
+}
+label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.two-but {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  button {
+    width: 47%;
+  }
+}
+.activiteis-img {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .activity {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    > label {
+      font-weight: bold;
+    }
+  }
+  .images {
+    width: 40%;
+
+    display: flex;
+    flex-direction: column;
+    input {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.floor-main {
+  display: flex;
+  flex-direction: column;
+  .floor-name-number {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .name,
+    .floor-number {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+    }
+    .name {
+      width: 55%;
+    }
+  }
+  .image {
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+  }
+  .image-but {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .image {
+      display: flex;
+      flex-direction: column;
+      width: 55%;
+    }
+    button {
+        width: 40%;
+        height: 50px;
+        margin-top: 34px;
+    }
+  }
+}
+
+.floor-add {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    button {
+        width: 47%;
+    }
+}
+
+.submit {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    button {
+        width: 47%;
+    }
+}
+

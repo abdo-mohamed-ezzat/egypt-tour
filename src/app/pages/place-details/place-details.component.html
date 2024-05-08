@@ -1,6 +1,146 @@
 <div class="d-flex flex-row flex-wrap">
-    <div class="card" style="width: 100%;">
-     
+  <div class="card" style="width: 100%">
+    <p-toast></p-toast>
+    <p-confirmDialog></p-confirmDialog>
+    <div class="col-12">
+      <h2 class="text-center">Place Details</h2>
+    </div>
+    <div class="row d-flex flex-column justify-content-between">
+      <p-dropdown
+        [options]="placesNames"
+        [(ngModel)]="currentPlaceName"
+        placeholder="Select a City"
+        (onChange)="onSelectPlace($event)"
+      />
+    </div>
+    <p-divider align="center" type="dotted">
+      <b>Main Details</b>
+    </p-divider>
+
+    <div class="date-dis">
+      <div class="discription">
+        <label for="discription" class="me-2">Deitailed Discription</label>
+        <textarea
+          rows="5"
+          cols="5"
+          pInputTextarea
+          [(ngModel)]="detailedDiscription"
+        >
+        </textarea>
+      </div>
+
+      <div class="date">
+        <label>Time</label>
+        <div class="from">
+          <label for="from" class="me-2">From</label>
+          <p-calendar
+            inputId="calendar-timeonly"
+            [(ngModel)]="openTime"
+            [timeOnly]="true"
+          />
+        </div>
+        <div class="to">
+          <label for="to" class="me-2">To</label>
+          <p-calendar
+            inputId="calendar-timeonly"
+            [(ngModel)]="closeTime"
+            [timeOnly]="true"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="activiteis-img">
+      <div class="activity">
+        <label for="activity" class="me-2">Activiteis</label>
+        <input pInputText type="text" [(ngModel)]="currentActivity" />
+        <div class="two-but">
+          <button
+            pButton
+            type="button"
+            label="Add"
+            (click)="addActivity()"
+          ></button>
+        </div>
+      </div>
+      <div class="images">
+        <label for="images" class="me-2">Images</label>
+        <input pInputText type="text" [(ngModel)]="placeImage" />
+        <div class="two-but">
+          <button
+            pButton
+            type="button"
+            label="Add"
+            (click)="addImage()"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="historical-content" *ngIf="historical">
+      <p-divider align="center" type="dotted">
+        <b>Add Floor</b>
+      </p-divider>
+      <div class="floor-main">
+        <div class="floor-name-number">
+          <div class="name">
+            <label for="image" class="me-2">Floor Name</label>
+            <input pInputText type="text" [(ngModel)]="floorName" />
+          </div>
+          <div class="floor-number">
+            <label for="image" class="me-2">Floor Number</label>
+            <input pInputText type="number" [(ngModel)]="floorNumber" />
+          </div>
+        </div>
+        <div class="image">
+          <label for="image" class="me-2">Floor Image</label>
+          <input pInputText type="text" [(ngModel)]="floorImage" />
+        </div>
+      </div>
+      <p-divider align="right" type="dotted">
+        <b>Floor Rooms</b>
+      </p-divider>
+      <div class="floor-main">
+        <div class="floor-name-number">
+          <div class="name">
+            <label for="image" class="me-2">Room Name</label>
+            <input pInputText type="text" [(ngModel)]="roomName" />
+          </div>
+          <div class="floor-number">
+            <label for="image" class="me-2">Room Number</label>
+            <input pInputText type="number" [(ngModel)]="roomNumber" />
+          </div>
+        </div>
+        <div class="image-but">
+          <div class="image">
+            <label for="image" class="me-2">Room Image</label>
+            <input pInputText type="text" [(ngModel)]="roomImage" />
+          </div>
+          <button
+            pButton
+            type="button"
+            label="Add Room"
+            (click)="addRoom()"
+          ></button>
+        </div>
+      </div>
+      <div class="floor-add">
+        <button pButton type="button" label="Add Floor"></button>
+      </div>
+    </div>
+    <p-divider align="center" type="dotted">
+      <b>Finish</b>
+    </p-divider>
+    <div class="submit">
+      <button
+        pButton
+        type="button"
+        label="Submit"
+        (click)="submit()"
+        class="p-button-success"
+        icon="pi pi-check"
+        iconPos="right"
+      ></button>
     </div>
   </div>
-  
+</div>
