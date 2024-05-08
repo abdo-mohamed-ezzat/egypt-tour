@@ -70,11 +70,14 @@ export class PlaceDetailsComponent {
   }
 
   getMainDetails(): any {
+    console.log(this.openTime, typeof this.openTime);
+    const startTime = this.openTime.toString().split(' ').at(4);
+    const endTime = this.closeTime.toString().split(' ').at(4);
     const param = {
       placeId: this.placeID,
       detailedDescription: this.detailedDiscription,
-      openTime: this.openTime,
-      closeTime: this.closeTime,
+      openTime: startTime,
+      closeTime: endTime,
       latitude: this.latitude,
       longitude: this.longitude,
       activities: this.activites,
@@ -93,7 +96,12 @@ export class PlaceDetailsComponent {
   }
 
   addFloor(): void {
-    if(this.floorName === '' || this.floorNumber === null || this.floorImage === '' || this.rooms.length === 0) {
+    if (
+      this.floorName === '' ||
+      this.floorNumber === null ||
+      this.floorImage === '' ||
+      this.rooms.length === 0
+    ) {
       this.messageService.add({
         severity: 'warn',
         summary: 'Error',
@@ -101,6 +109,7 @@ export class PlaceDetailsComponent {
       });
       return;
     }
+    console.log('floor suc');
     const floor = {
       floorNumber: this.floorNumber,
       floorName: this.floorName,
@@ -108,14 +117,32 @@ export class PlaceDetailsComponent {
       rooms: this.rooms,
     };
     this.floors.push(floor);
+    this.resetAttr();
+  }
+  resetAttr() {
     this.floorName = '';
     this.floorNumber = null;
     this.floorImage = '';
     this.rooms = [];
+    this.latitude = '';
+    this.longitude = '';
+    this.openTime = '';
+    this.closeTime = '';
+    this.detailedDiscription = '';
+    this.imagesLinkes = [];
+    this.activites = [];
+    this.currentActivity = '';
+    this.placeImage = '';
+    this.roomName = '';
+    this.roomNumber = null;
+    this.roomImage = '';
   }
-
   addRoom(): void {
-    if(this.roomName === '' || this.roomNumber === null || this.roomImage === '') {
+    if (
+      this.roomName === '' ||
+      this.roomNumber === null ||
+      this.roomImage === ''
+    ) {
       this.messageService.add({
         severity: 'warn',
         summary: 'Error',
@@ -135,7 +162,7 @@ export class PlaceDetailsComponent {
     this.roomImage = '';
   }
   addImage() {
-    if(this.placeImage === '') {
+    if (this.placeImage === '') {
       this.messageService.add({
         severity: 'warn',
         summary: 'Error',
@@ -147,7 +174,7 @@ export class PlaceDetailsComponent {
     this.placeImage = '';
   }
   addActivity() {
-    if(this.currentActivity === '') {
+    if (this.currentActivity === '') {
       this.messageService.add({
         severity: 'warn',
         summary: 'Error',
@@ -161,9 +188,11 @@ export class PlaceDetailsComponent {
 
   allParamData() {
     const params = {
-      ...this.getMainDetails,
-      ...this.floors,
+      ...this.getMainDetails(),
+      floors: this.floors,
     };
+    console.log('param\n', params);
+    return params;
   }
 
   checkDataValidation(): boolean {
@@ -178,7 +207,7 @@ export class PlaceDetailsComponent {
         isValid = false;
       }
     });
-    if(!this.historical) {
+    if (!this.historical) {
       return isValid;
     }
     Object.values(this.getHistoricalDetails()).forEach((element: any) => {
@@ -186,7 +215,6 @@ export class PlaceDetailsComponent {
         element === '' ||
         element === null ||
         element === undefined ||
-        element === -1 ||
         (typeof element === 'object' && element.length === 0)
       ) {
         isValid = false;
@@ -197,14 +225,31 @@ export class PlaceDetailsComponent {
 
   submit() {
     console.log(this.allParamData());
-    if (!this.checkDataValidation()){
+    if (!this.checkDataValidation()) {
       this.messageService.add({
         severity: 'error',
         summary: 'Error',
         detail: 'Please fill all details',
       });
-      return
+      return;
     }
-
+    this.http
+      .post(environment.APIURL + '/api/PlaceDetails/Add', this.allParamData())
+      .subscribe(
+        (response) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Place Added Succesfully',
+          });
+        },
+        (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.messege,
+          });
+        }
+      );
   }
 }

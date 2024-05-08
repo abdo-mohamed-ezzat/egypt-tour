@@ -49,7 +49,16 @@
         </div>
       </div>
     </div>
-
+    <div class="long-lat">
+        <div class="long">
+            <label class="me-2">longitude</label>
+            <input pInputText type="text" [(ngModel)]="longitude" />
+        </div>
+        <div class="lat">
+            <label  class="me-2">latitude</label>
+            <input pInputText type="text" [(ngModel)]="latitude" />
+        </div>
+    </div>
     <div class="activiteis-img">
       <div class="activity">
         <label for="activity" class="me-2">Activiteis</label>
@@ -125,7 +134,7 @@
         </div>
       </div>
       <div class="floor-add">
-        <button pButton type="button" label="Add Floor"></button>
+        <button pButton type="button" (click)="addFloor()" label="Add Floor"></button>
       </div>
     </div>
     <p-divider align="center" type="dotted">

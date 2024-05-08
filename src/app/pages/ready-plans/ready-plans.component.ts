@@ -146,7 +146,11 @@ export class ReadyPlansComponent {
       dayNums: this.dayNums,
     };
     if (!this.edit) {
-      if (this.form.valid) {
+      //check only for placesIDs and dayNums
+      if (
+        this.form.get('placesIDs')?.value.length > 0 &&
+        this.form.get('dayNums')?.value.length > 0
+      ) {
         this.http
           .post(environment.APIURL + '/api/ReadyTrips/Add', data)
           .subscribe(
@@ -203,7 +207,6 @@ export class ReadyPlansComponent {
     console.log(this.tripPlaces);
     this.form.get('currentPlace')?.reset();
     this.form.get('currentDay')?.reset();
-    this.addDisabled = true;
   }
 }
 

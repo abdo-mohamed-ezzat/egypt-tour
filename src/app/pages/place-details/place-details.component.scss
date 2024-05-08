@@ -131,3 +131,18 @@ label {
     }
 }
 
+.long-lat {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .long {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+    }
+    .lat {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+    }
+}
