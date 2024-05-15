@@ -15,7 +15,7 @@
     ></p-messages>
     <form (ngSubmit)="submit()" [formGroup]="form" class="mx-5">
       <div class="flex flex-column gap-2">
-        <label for="cityName">Category Name</label>
+        <label for="cityName">Place Name</label>
         <input
           pInputText
           id="cityName"
@@ -97,6 +97,8 @@
         <tr>
           <th>Image</th>
           <th>Name</th>
+          <th>City Name</th>
+          <th>Category Name</th>
           <th>Rate Count</th>
           <th>action</th>
           <th></th>
@@ -106,6 +108,8 @@
         <tr>
           <td><img [src]="place.imageLink" width="50" class="shadow-4" /></td>
           <td>{{ place.name }}</td>
+          <td>{{ place.cityName }}</td>
+          <td>{{ place.categoryName }}</td>
           <td>{{ place.rateCount }}</td>
           <td>
             <p-rating

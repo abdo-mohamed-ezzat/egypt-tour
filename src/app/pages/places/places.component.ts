@@ -199,6 +199,8 @@ export class PlacesComponent {
 interface place {
   id: number;
   name: string;
+  cityName: string;
+  categoryName: string;
   description: string;
   imageLink: string;
   categoryId: number;

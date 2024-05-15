@@ -83,6 +83,66 @@
   </div>
   <div class="card" style="width: 50%">
     <p-table
+        #dt
+        [value]="trips"
+        [scrollable]="true"
+        [scrollHeight]="'600px'"
+        [tableStyle]="{ 'max-width': '75rem' }"
+        [rowHover]="true"
+        dataKey="id"
+        [showCurrentPageReport]="true"
+        rowGroupMode="subheader"
+        groupRowsBy="name"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 150px;">Duration (days)</th>
+                <th>Trip Name</th>
+                <th>Name</th>
+                <th>DayNumber</th>
+                <th>City</th>
+                <th>Category</th>
+                <th>Place Image</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="groupheader" let-trip let-rowIndex="rowIndex" let-expanded="expanded">
+            <tr>
+                <td colspan="8">
+                    <button type="button" pButton pRipple [pRowToggler]="trip" class="p-button-text p-button-rounded p-button-plain mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    <span class="font-bold ml-2">{{ trip.name }}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-trip>
+            <ng-container *ngFor="let detail of trip.details">
+                <tr>
+                    <td>{{ trip.duration }}</td>
+                    <td>{{ trip.name }}</td>
+                    <td>{{ detail.name }}</td>
+                    <td>{{ detail.dayNum }}</td>
+                    <td>{{ detail.cityName }}</td>
+                    <td>{{ detail.categoryName }}</td>
+                    <td><img [src]="detail.imageLink" width="50" /></td>
+                    <td>
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-trash"
+                            class="p-button-rounded p-button-warning"
+                            (click)="deleteTrip(trip, trip.id)"
+                        ></button>
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-template>
+    </p-table>
+</div>
+
+
+
+  <!-- <div class="card" style="width: 50%">
+    <p-table
       #dt
       [value]="trips"
       [scrollable]="true"
@@ -94,14 +154,20 @@
       rowGroupMode="subheader" groupRowsBy="name"
     >
       <ng-template pTemplate="header">
-        <tr>
-          <th>Image</th>
-          <th>Trip Name</th>
-          <th>Category Name</th>
-          <th>Duration</th>
-          <th>Day</th>
-          <th>Rating</th>
-          <th></th>
+        <tr> -->
+        
+        
+<!-- <th>Image</th> -->
+          
+            <!-- <th>Trip Name</th> -->
+          
+<!-- <th>Category Name</th> -->
+          
+            <!-- <th>Duration</th> -->
+          
+<!-- <th>Day</th> -->
+<!-- <th>Rating</th> -->
+          <!-- <th></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="groupheader" let-trip let-rowIndex="rowIndex" let-expanded="expanded">
@@ -114,23 +180,23 @@
         </tr>
     </ng-template>
       <ng-template  pTemplate="rowexpansion" let-trip>
-        <tr>
-          <td><img [src]="trip.categotyImage" width="50" class="shadow-4" /></td>
-          <td>{{ trip.name }}</td>
-          <td>{{ trip.duration }}</td>
-          <td>{{ trip.dayNumber }}</td>
-          <td>
-          {{trip.categoryName}}
-          </td>
-          <td>
+        <tr> -->
+<!-- <td><img [src]="trip.categotyImage" width="50" class="shadow-4" /></td> -->
+          <!-- <td>{{ trip.name }}</td>
+          <td>{{ trip.duration }}</td> -->
+<!-- <td>{{ trip.dayNumber }}</td> -->
+          <!-- <td> -->
+<!-- {{trip.categoryName}} -->
+          <!-- </td>
+          <td> -->
+<!-- <button
+pButton
+pRipple
+icon="pi pi-pencil"
+class="p-button-rounded p-button-success mr-2"
+(click)="editTrip(trip)"
+></button> -->
             <!-- <button
-              pButton
-              pRipple
-              icon="pi pi-pencil"
-              class="p-button-rounded p-button-success mr-2"
-              (click)="editTrip(trip)"
-            ></button> -->
-            <button
               pButton
               pRipple
               icon="pi pi-trash"
@@ -141,5 +207,5 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
+  </div> -->
 </div>
