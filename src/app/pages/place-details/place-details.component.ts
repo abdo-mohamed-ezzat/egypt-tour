@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import {
   ConfirmationService,
   MessageService,
+  Message,
   ConfirmEventType,
 } from 'primeng/api';
 
@@ -27,6 +28,8 @@ export class PlaceDetailsComponent {
   imagesLinkes: string[] = [];
   currentActivity: string = '';
   activites: string[] = [];
+
+  messages: Message[] = [];
 
   historical: any = false;
   floors: any[] = [];
@@ -222,6 +225,58 @@ export class PlaceDetailsComponent {
     });
     return isValid;
   }
+  
+  deletePlaceDetails() {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass: 'p-button-danger p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+
+      accept: () => {
+        this.http
+          .delete(environment.APIURL + '/api/PlaceDetails/DeleteByPlaceID?ID=' + this.placeID)
+          .subscribe({
+            next: (res: any) => {
+              this.messageService.add({
+                severity: 'info',
+                summary: 'Confirmed',
+                detail: 'Record deleted',
+              });
+            },
+            error: (error: any) => {
+              this.messages = [
+                { severity: 'error', summary: 'Error', detail: error.message },
+              ];
+            },
+          });
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Rejected',
+          detail: 'You have rejected',
+        });
+      },
+    });
+      // Reset the model values
+      this.floorName = '';
+      this.floorNumber = null; // Assuming floorNumber is a number, set it to null
+      this.floorImage = '';
+      this.roomName = '';
+      this.roomNumber = null; // Assuming roomNumber is a number, set it to null
+      this.roomImage = '';
+      this.currentActivity = '';
+      this.placeImage = '';
+      this.longitude = '';
+      this.latitude = '';
+      this.detailedDiscription = '';
+      this.openTime = ''; // Assuming openTime is a date/time, set it to null
+      this.closeTime = ''; // Assuming closeTime is a date/time, set it to null
+  }
 
   submit() {
     console.log(this.allParamData());
@@ -251,5 +306,18 @@ export class PlaceDetailsComponent {
           });
         }
       );
+      this.floorName = '';
+      this.floorNumber = null; // Assuming floorNumber is a number, set it to null
+      this.floorImage = '';
+      this.roomName = '';
+      this.roomNumber = null; // Assuming roomNumber is a number, set it to null
+      this.roomImage = '';
+      this.currentActivity = '';
+      this.placeImage = '';
+      this.longitude = '';
+      this.latitude = '';
+      this.detailedDiscription = '';
+      this.openTime = ''; // Assuming openTime is a date/time, set it to null
+      this.closeTime = ''; // Assuming closeTime is a date/time, set it to null
   }
 }
